@@ -142,8 +142,6 @@ namespace MovieWatcher.Controllers
                 Beschrijving = filmFromDb.Beschrijving,
                 Foto = filmFromDb.Foto,
                 Ratings = ratings,
-
-
             };
             return View(model);
         }
