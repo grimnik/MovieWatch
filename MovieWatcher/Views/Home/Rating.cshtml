@@ -1,0 +1,47 @@
+﻿@model MovieWatcher.Models.HomeRatingViewModel
+
+
+
+
+    <div class="jumbotron">
+        <h1 class="display-4">@Model.Titel</h1>
+        <hr class="my-4" />
+        @if (Model.Foto != null)
+        {
+
+            var base64 = Convert.ToBase64String(Model.Foto);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            <img src="@imgSrc" alt="@Model.Titel" />
+        }
+        <hr class="my-4">
+        <p>@Model.Beschrijving</p>
+
+        <hr class="my-4">
+
+        @if (Model.Rating != null)
+        {
+            <p>@Model.Rating.RatingPoints</p>
+        }
+        else
+        {
+            <p>Je hebt deze film nog geen rating gegeven.</p>
+        }
+          
+        <form asp-action="Rating" asp-controller="home" method="post" enctype="multipart/form-data" role="form">
+            <div class="form-group">
+                <label asp-for="Rating.RatingPoints"></label>
+                <select asp-for="Rating.RatingPoints" asp-items="@Model.Ratings" class="btn btn-secondary text-danger"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating.Review"></label>
+                <textarea asp-for="Rating.Review" class="form-control" ></textarea>
+                <span class="text-danger" asp-validation-for="Rating.Review"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-secondary text-danger" value="Submit Rating" />
+            </div> 
+        </form>
+        <br />
+
+        <a class="btn btn-secondary text-danger btn-lg" asp-action="Index" asp-controller="Home" role="button">Back</a>
+    </div>

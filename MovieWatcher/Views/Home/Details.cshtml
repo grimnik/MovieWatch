@@ -1,0 +1,65 @@
+﻿@model MovieWatcher.Models.HomeDetailViewModel
+
+
+    <div class="jumbotron">
+        <h1 class="display-4">@Model.Titel</h1>
+        @if (Model.Foto != null)
+        {
+
+            var base64 = Convert.ToBase64String(Model.Foto);
+            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            <img src="@imgSrc" alt="@Model.Titel" />
+        }
+        <hr class="my-4">
+        <p>@Model.Beschrijving</p>
+        <hr class="my-4" />
+        <h2>Reviews and Ratings</h2>
+        @if (Model.Ratings == null)
+        {
+            <p>Er zijn nog geen ratings voor deze film!</p>
+            <p>Meld je aan en geef een rating!</p>
+        }
+        @foreach (var item in @Model.Ratings)
+        {
+            <hr class="my-4" />
+            <p>User: @item.User.UserName</p>
+            <p>Rating: @item.RatingPoints</p>
+            <p>Review: @item.Review</p>
+            <hr class="my-4" />
+        }
+        @foreach (var item in Model.UserFilmGezienStatuses)
+        {
+          
+                if (item.GezienStatusId == 1)
+                {
+                    Model.AantalGezien++;
+                    if (Model.AantalGezien > 1)
+                    {
+
+                        <p>@Model.AantalGezien leden hebben deze film gezien!</p>
+                    }
+                    else
+                    {
+                        <p>@Model.AantalGezien lid heeft deze film gezien!</p>
+
+                    }
+                }
+                if (item.GezienStatusId == 2)
+                {
+                    Model.AantalWil++;
+                    if (Model.AantalWil > 1)
+                    {
+
+                        <p>@Model.AantalWil leden willen deze film zien!</p>
+                    }
+                    else
+                    {
+                        <p>@Model.AantalWil lid wil deze film zien!</p>
+
+                    }
+                }
+            
+        }
+        <a class="btn btn-secondary text-danger btn-lg" asp-action="Index" asp-controller="Home" role="button">Back</a>
+    </div>
+    

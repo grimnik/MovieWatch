@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MovieWatcher.Models.HomeListViewModel>
+
+
+@if (Model.Count() != 0)
+{
+
+
+    @foreach (var item in Model)
+    {
+
+        <div class="jumbotron">
+            <h1 class="display-4">@item.Titel</h1>
+            @if (item.Foto != null)
+            {
+
+                var base64 = Convert.ToBase64String(item.Foto);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                <img src="@imgSrc" alt="@item.Titel" />
+            }
+            <hr class="my-4">
+            <p>@item.Beschrijving</p>
+            
+            <a class="btn btn-secondary text-danger btn-lg" asp-route-id="@item.Id" asp-action="Details" asp-controller="Home" role="button">Details</a>
+            @if (User.IsInRole("Member") || User.IsInRole("Admin"))
+            {
+                <a class="btn btn-secondary text-danger btn-lg" Asp-route-id="@item.Id" asp-action="Rating" asp-controller="Home" role="button">Rate</a>
+
+
+                <form asp-action="Gezien" asp-controller="Home" method="post" role="form" enctype="multipart/form-data" asp-route-id="@item.Id">
+                    <div class="form-group">
+            
+                        <label asp-for="@item.Gezien"></label><br />
+                        <select asp-for="@item.Gezien" asp-items="@item.GezienStatussen" class="btn btn-secondary text-danger" ></select>
+                        <span class="text-danger" asp-validation-for="@item.Gezien"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-secondary text-danger" value="Save" />
+                    </div>
+                </form>
+
+
+            }
+        </div>
+    }
+}
+else
+{
+    <p>Er zijn nog geen films in de database!</p>
+}

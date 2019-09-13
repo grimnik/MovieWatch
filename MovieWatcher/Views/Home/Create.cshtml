@@ -1,0 +1,30 @@
+﻿@model MovieWatcher.Models.HomeCreateViewModel
+
+
+<form asp-action="Create" asp-controller="Home" method="post" role="form" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Titel"></label>
+        <input asp-for="Titel" class="form-control" />
+        <span asp-validation-for="Titel" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Beschrijving"></label>
+        <textarea asp-for="Beschrijving" class="form-control" rows="5" style="max-height:200px"></textarea>
+        <span asp-validation-for="Beschrijving" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Foto"></label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Upload</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" asp-for="Foto">
+                <label class="custom-file-label" for="inputGroupFile01">Choose File</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-secondary text-danger" value="Create!" />
+    </div>
+</form>
