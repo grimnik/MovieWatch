@@ -33,7 +33,14 @@
                 if (item.GezienStatusId == 1)
                 {
                     Model.AantalGezien++;
-                    if (Model.AantalGezien > 1)
+                }
+                if (item.GezienStatusId == 2)
+                {
+                    Model.AantalWil++;
+                }
+            
+        }
+                    @if (Model.AantalGezien > 1)
                     {
 
                         <p>@Model.AantalGezien leden hebben deze film gezien!</p>
@@ -43,11 +50,7 @@
                         <p>@Model.AantalGezien lid heeft deze film gezien!</p>
 
                     }
-                }
-                if (item.GezienStatusId == 2)
-                {
-                    Model.AantalWil++;
-                    if (Model.AantalWil > 1)
+                    @if (Model.AantalWil > 1)
                     {
 
                         <p>@Model.AantalWil leden willen deze film zien!</p>
@@ -57,9 +60,6 @@
                         <p>@Model.AantalWil lid wil deze film zien!</p>
 
                     }
-                }
-            
-        }
         <a class="btn btn-secondary text-danger btn-lg" asp-action="Index" asp-controller="Home" role="button">Back</a>
     </div>
     

@@ -164,9 +164,18 @@ namespace MovieWatcher.Controllers
                 UserId = userId,
                 Review = model.Rating.Review
             };
-
+            try
+            {
             _appContext.Ratings.Add(rating);
             _appContext.SaveChanges();
+
+            }
+            catch (Exception)
+            {
+                _appContext.Ratings.Update(rating);
+                _appContext.SaveChanges();
+
+            }
             return RedirectToAction("Index");
         }
         [HttpPost]
