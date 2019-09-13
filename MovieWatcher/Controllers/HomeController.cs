@@ -97,7 +97,7 @@ namespace MovieWatcher.Controllers
             Rating[] ratingsFromDb = _appContext.Ratings.ToArray();
             List<Rating> ratings = new List<Rating>();
             IdentityUser[] users = _appContext.Users.ToArray();
-            UserFilmGezienStatus[] userFilmGezienStatusFromDb = _appContext.UserFilmGeziens.ToArray();
+            UserFilmGezienStatus[] userFilmGezienStatusFromDb = _appContext.UserFilmGeziens.Where(x => x.FilmId == id).ToArray();
             
 
             HomeDetailViewModel model = new HomeDetailViewModel()
