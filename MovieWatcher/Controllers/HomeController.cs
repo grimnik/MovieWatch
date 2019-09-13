@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -69,6 +70,8 @@ namespace MovieWatcher.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Create(HomeCreateViewModel model)
         {
             if (!TryValidateModel(model))
@@ -121,6 +124,7 @@ namespace MovieWatcher.Controllers
 
             return View(model);
         }
+        [Authorize]
         public IActionResult Rating(int id)
         {
             Rating[] ratingsFromDb = _appContext.Ratings.ToArray();
@@ -146,6 +150,8 @@ namespace MovieWatcher.Controllers
             };
             return View(model);
         }
+        [Authorize]
+
         [HttpPost]
         public IActionResult Rating(int id, HomeRatingViewModel model)
         {
@@ -177,6 +183,8 @@ namespace MovieWatcher.Controllers
             }
             return RedirectToAction("Index");
         }
+        [Authorize]
+
         [HttpPost]
         public IActionResult Gezien(int id, HomeListViewModel item)
         {
